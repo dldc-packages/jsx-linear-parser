@@ -1,9 +1,10 @@
-import { Cursor } from './InputStream';
+import { Position } from './InputStream';
 
 export interface Nodes {
   OpeningTag: { component: string; props: Props };
   ClosingTag: { component: string; props: Props };
   SelfClosingTag: { component: string; props: Props };
+  Text: { value: string };
   Prop: {
     name: string;
     value: any;
@@ -13,7 +14,10 @@ export interface Nodes {
 export type NodeType = keyof Nodes;
 
 type NodeCommon = {
-  cursor: Cursor;
+  position: {
+    start: Position;
+    end: Position;
+  };
 };
 
 export type Node<K extends NodeType = NodeType> = {
@@ -25,6 +29,7 @@ const NODES_OBJ: { [K in NodeType]: null } = {
   OpeningTag: null,
   SelfClosingTag: null,
   Prop: null,
+  Text: null,
 };
 
 const NODES = Object.keys(NODES_OBJ) as Array<NodeType>;
@@ -40,3 +45,4 @@ export const NodeIs: {
 export type Tag = Node<'ClosingTag' | 'OpeningTag' | 'SelfClosingTag'>;
 export type Prop = Node<'Prop'>;
 export type Props = Array<Prop>;
+export type Text = Node<'Text'>;

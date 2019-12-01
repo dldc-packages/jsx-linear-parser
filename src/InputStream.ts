@@ -3,14 +3,15 @@ export interface InputStream {
   peek(): string;
   eof(): boolean;
   croak(msg: string): never;
-  cursor(): Cursor;
+  position(): Position;
   saveState(): State;
   restoreState(state: State): void;
 }
 
-export type Cursor = {
+export type Position = {
   line: number;
   column: number;
+  offset: number;
 };
 
 export interface State {
@@ -29,7 +30,7 @@ export function InputStream(input: string): InputStream {
     peek,
     eof,
     croak,
-    cursor,
+    position: position,
     saveState,
     restoreState,
   };
@@ -48,10 +49,11 @@ export function InputStream(input: string): InputStream {
     pos = state.pos;
   }
 
-  function cursor(): Cursor {
+  function position(): Position {
     return {
       line,
       column: col,
+      offset: pos,
     };
   }
 

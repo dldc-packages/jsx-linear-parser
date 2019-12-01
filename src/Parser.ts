@@ -1,28 +1,57 @@
-import { InputStream } from './InputStream';
-import { Tag, NodeType, Nodes, Node, Props, Prop } from './Node';
+import { InputStream, Position } from './InputStream';
+import { Tag, NodeType, Nodes, Node, Props, Prop, Text } from './Node';
 import { Parser as LiteralParser } from 'literal-parser';
 
 export const Parser = {
   parse,
 };
 
-function parse(file: string): any {
+function parse(file: string): Array<Tag | Text> {
   const input = InputStream(file);
 
   return root();
 
-  function root() {
-    skipWhitespaces();
-    const tag = parseMaybeTab();
-    if (tag === false) {
-      return input.croak('Expected a Tag');
+  function root(): Array<Tag | Text> {
+    let tags: Array<Tag | Text> = [];
+    let count = 14;
+    while (!input.eof() && count > 0) {
+      count--;
+      const tag = parseTagOrText();
+      if (tag) {
+        tags.push(tag);
+      }
     }
-    return tag;
+    return tags;
+  }
+
+  function parseTagOrText(): Tag | Text | false {
+    const tag = parseMaybeTab();
+    if (tag) {
+      return tag;
+    }
+    const start = input.position();
+    const text = (maybeSkip('<') ? '<' : '') + readWhile(ch => ch !== '<');
+
+    const maybeEnd = input.position();
+    if (input.eof()) {
+      return createNode('Text', start, maybeEnd, { value: text });
+    }
+    const backup = input.saveState();
+    const next = parseTagOrText();
+    if (next === false) {
+      return createNode('Text', start, maybeEnd, { value: text });
+    }
+    if (next.type === 'Text') {
+      return createNode('Text', start, input.position(), { value: text + next.value });
+    }
+    input.restoreState(backup);
+    return createNode('Text', start, maybeEnd, { value: text });
   }
 
   function parseMaybeTab(): false | Tag {
     const state = input.saveState();
     try {
+      const start = input.position();
       skip('<');
       const isClosing = maybeSkip('/');
       const name = parseComponentName();
@@ -31,14 +60,14 @@ function parse(file: string): any {
       const isSelfClose = isClosing === false && maybeSkip('/');
       skip('>');
       if (isSelfClose) {
-        return createNode('SelfClosingTag', { component: name, props });
+        return createNode('SelfClosingTag', start, input.position(), { component: name, props });
       }
       if (isClosing) {
-        return createNode('ClosingTag', { component: name, props });
+        return createNode('ClosingTag', start, input.position(), { component: name, props });
       }
-      return createNode('OpeningTag', { component: name, props });
+      return createNode('OpeningTag', start, input.position(), { component: name, props });
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       input.restoreState(state);
       return false;
     }
@@ -56,11 +85,12 @@ function parse(file: string): any {
 
   function parseProp(): Prop {
     skipWhitespaces();
+    const start = input.position();
     const name = readWhile(isPropNameChar);
     skip('=');
     const value = parsePropValue();
     skipWhitespaces();
-    return createNode('Prop', { name, value });
+    return createNode('Prop', start, input.position(), { name, value });
   }
 
   function parsePropValue(): any {
@@ -159,11 +189,19 @@ function parse(file: string): any {
     return false;
   }
 
-  function createNode<K extends NodeType>(type: K, data: Nodes[K]): Node<K> {
+  function createNode<K extends NodeType>(
+    type: K,
+    start: Position,
+    end: Position,
+    data: Nodes[K]
+  ): Node<K> {
     return {
       type,
       ...data,
-      cursor: input.cursor(),
+      position: {
+        start,
+        end,
+      },
     } as any;
   }
 }
