@@ -1,0 +1,54 @@
+{
+  "name": "jsx-linear-parser",
+  "version": "1.0.0-alpha.0",
+  "description": "A linear JSX parser",
+  "keywords": [],
+  "homepage": "https://github.com/etienne-dldc/jsx-linear-parser#readme",
+  "bugs": {
+    "url": "https://github.com/etienne-dldc/jsx-linear-parser/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etienne-dldc/jsx-linear-parser.git"
+  },
+  "license": "MIT",
+  "author": "Etienne Dldc",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/jsx-linear-parser.esm.js",
+  "typings": "dist/index.d.ts",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "tsdx build --target web",
+    "lint": "tsdx lint",
+    "pub": "yarn build && np",
+    "start": "tsdx watch",
+    "test": "tsdx test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 100,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "dependencies": {
+    "literal-parser": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.22",
+    "husky": "^3.0.9",
+    "np": "^5.1.3",
+    "tsdx": "^0.11.0",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.2"
+  }
+}
