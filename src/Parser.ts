@@ -12,7 +12,7 @@ function parse(file: string): Array<Tag | Text> {
   return root();
 
   function root(): Array<Tag | Text> {
-    let tags: Array<Tag | Text> = [];
+    const tags: Array<Tag | Text> = [];
     let count = 14;
     while (!input.eof() && count > 0) {
       count--;
@@ -30,7 +30,7 @@ function parse(file: string): Array<Tag | Text> {
       return tag;
     }
     const start = input.position();
-    const text = (maybeSkip('<') ? '<' : '') + readWhile(ch => ch !== '<');
+    const text = (maybeSkip('<') ? '<' : '') + readWhile((ch) => ch !== '<');
 
     const maybeEnd = input.position();
     if (input.eof()) {

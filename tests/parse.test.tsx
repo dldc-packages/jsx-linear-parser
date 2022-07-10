@@ -1,4 +1,4 @@
-import { Parser } from '../src';
+import { Parser } from '../src/mod';
 
 describe('parse all sort of shape', () => {
   const SHAPES: Array<string> = [
@@ -14,7 +14,7 @@ describe('parse all sort of shape', () => {
     '<Foo prop="prop1" other={true} >Something else',
   ];
 
-  SHAPES.forEach(str => {
+  SHAPES.forEach((str) => {
     test(`Parse ${str}`, () => {
       expect(() => Parser.parse(str)).not.toThrow();
     });
