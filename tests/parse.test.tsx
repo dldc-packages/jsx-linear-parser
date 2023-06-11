@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import { Parser } from '../src/mod';
 
 describe('parse all sort of shape', () => {

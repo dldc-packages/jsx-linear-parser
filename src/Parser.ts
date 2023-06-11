@@ -189,12 +189,7 @@ function parse(file: string): Array<Tag | Text> {
     return false;
   }
 
-  function createNode<K extends NodeType>(
-    type: K,
-    start: Position,
-    end: Position,
-    data: Nodes[K]
-  ): Node<K> {
+  function createNode<K extends NodeType>(type: K, start: Position, end: Position, data: Nodes[K]): Node<K> {
     return {
       type,
       ...data,

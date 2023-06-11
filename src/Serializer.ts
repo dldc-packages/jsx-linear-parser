@@ -7,17 +7,12 @@ export const Serializer = {
 
 const SERIALIZER: { [K in NodeType]: (node: Node<K>) => string } = {
   Text: (node) => node.value,
-  ClosingTag: (node) =>
-    `</${node.component} ${node.props.map((prop) => serialize(prop)).join(' ')}>`,
-  OpeningTag: (node) =>
-    `<${node.component} ${node.props.map((prop) => serialize(prop)).join(' ')}>`,
-  SelfClosingTag: (node) =>
-    `<${node.component} ${node.props.map((prop) => serialize(prop)).join(' ')} />`,
+  ClosingTag: (node) => `</${node.component} ${node.props.map((prop) => serialize(prop)).join(' ')}>`,
+  OpeningTag: (node) => `<${node.component} ${node.props.map((prop) => serialize(prop)).join(' ')}>`,
+  SelfClosingTag: (node) => `<${node.component} ${node.props.map((prop) => serialize(prop)).join(' ')} />`,
   Prop: (node) =>
     `${node.name}=${
-      typeof node.value === 'string'
-        ? `"${node.value}"`
-        : `{${LiteralSerializer.serialize(node.value)}}`
+      typeof node.value === 'string' ? `"${node.value}"` : `{${LiteralSerializer.serialize(node.value)}}`
     }`,
 };
 
