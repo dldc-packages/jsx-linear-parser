@@ -1,15 +1,15 @@
 {
-  "name": "jsx-linear-parser",
+  "name": "@dldc/jsx-linear-parser",
   "version": "1.0.0",
   "description": "A linear JSX parser",
   "keywords": [],
-  "homepage": "https://github.com/etienne-dldc/jsx-linear-parser#readme",
+  "homepage": "https://github.com/dldc-packages/jsx-linear-parser#readme",
   "bugs": {
-    "url": "https://github.com/etienne-dldc/jsx-linear-parser/issues"
+    "url": "https://github.com/dldc-packages/jsx-linear-parser/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/etienne-dldc/jsx-linear-parser.git"
+    "url": "git+https://github.com/dldc-packages/jsx-linear-parser.git"
   },
   "license": "MIT",
   "author": "Etienne Dldc <e.deladonchamps@gmail.com>",
