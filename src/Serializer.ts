@@ -1,5 +1,5 @@
+import { Serializer as LiteralSerializer } from '@dldc/literal-parser';
 import { Node, NodeType } from './Node';
-import { Serializer as LiteralSerializer } from 'literal-parser';
 
 export const Serializer = {
   serialize,
