@@ -1,6 +1,7 @@
 import { Parser as LiteralParser } from '@dldc/literal-parser';
-import { InputStream, Position } from './InputStream';
-import { Node, NodeType, Nodes, Prop, Props, Tag, Text } from './Node';
+import type { Position } from './InputStream';
+import { InputStream } from './InputStream';
+import type { Node, NodeType, Nodes, Prop, Props, Tag, Text } from './Node';
 
 export const Parser = {
   parse,

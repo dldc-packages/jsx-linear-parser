@@ -1,4 +1,4 @@
-import { Position } from './InputStream';
+import type { Position } from './InputStream';
 
 export interface Nodes {
   OpeningTag: { component: string; props: Props };
