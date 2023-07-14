@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@dldc/literal-parser':
-    specifier: ^3.0.6
-    version: 3.0.6
+    specifier: ^3.0.7
+    version: 3.0.7
 
 devDependencies:
   '@types/node':
@@ -90,8 +90,8 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@dldc/literal-parser@3.0.6:
-    resolution: {integrity: sha512-9I02yXN8Ih85BULnFxfVFBFHdEtsZmGoRq12eOEf4vulFfiRg/aq5789vMm4O9fzYNjm2Cpl967qLfxV8y7PJA==}
+  /@dldc/literal-parser@3.0.7:
+    resolution: {integrity: sha512-CnApzpLgML6WCfbylDMsKACldhxre8RjRCs5sErO/6w9G0NlwflBx47eLhA6FC+H4ahsgAoY0c+5dj2U/eUDIg==}
     dev: false
 
   /@esbuild/android-arm64@0.18.11:
