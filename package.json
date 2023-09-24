@@ -1,6 +1,6 @@
 {
   "name": "@dldc/jsx-linear-parser",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A linear JSX parser",
   "keywords": [],
   "homepage": "https://github.com/dldc-packages/jsx-linear-parser#readme",
